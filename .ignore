@@ -1,0 +1,9 @@
+**/_ReSharper.*
+**/*.suo
+**/*.user
+**/*/_vsaddin/_build
+**/*.orig
+**/*.ncb
+**/bin/*/*
+**/obj/*
+**/build/*

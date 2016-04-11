@@ -1,0 +1,22 @@
+﻿<Window x:Class="LazyAmbientLight.Input.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Topmost="True"
+        Title="MainWindow" Height="100" Width="200" Closing="Window_Closing" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid    x:Name="ColorDisplay"  Background="Azure" >
+            <Button BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Background="Transparent"  Click="Button_Click"/>
+        </Grid>
+        <StatusBar Grid.Row="1" >
+            <TextBlock x:Name="Status" Width="120"></TextBlock>
+            <TextBlock x:Name="CaptureTime">Time:</TextBlock>
+            <Button x:Name="Sc" Content="R" Click="StopConnection"/>
+        </StatusBar>
+
+    </Grid>
+</Window>

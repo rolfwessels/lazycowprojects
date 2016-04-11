@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lazy Timer</string>
+    <string name="start">Start</string>
+    <string name="settings_label">Settings...</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_shortcut">s</string>
+    <string name="default_hour_title">Default Hour</string>
+    <string name="default_hour_summary">Set default hour</string>
+    <string name="default_min_title">Default Minutes</string>
+    <string name="default_min_summary">Set default minutes</string>
+    <string name="default_ringtone_title">Ringtone</string>
+    <string name="default_ringtone_summary">Select timer ringtone</string>
+    <string name="local_service_connected">Connected to service</string>
+    <string name="local_service_started">Timer Started</string>
+    <string name="local_service_stopped">Timer Stopped</string>
+    <string name="local_service_disconnected">Disconnect to service</string>
+    <string name="timer_started">Timer Started</string>
+</resources>

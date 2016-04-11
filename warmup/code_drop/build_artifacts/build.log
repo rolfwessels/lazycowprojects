@@ -1,0 +1,844 @@
+
+report_start_time:
+
+     [echo] Build for warmup started at 08/25/2012 14:55:58 with UppercuT.
+
+load_uppercut_assemblies:
+
+
+report_uppercut_version:
+
+     [echo] Using UppercuT version: 1.4.2.0.
+
+run_tasks:
+
+     [echo] ====================
+     [echo] UppercuTBuild
+     [echo] ====================
+Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\default.pre.build exists (or with .ps1/.rb added to the end of it).
+Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\default.replace.build exists (or with .ps1/.rb added to the end of it).
+
+error_check:
+
+
+build:
+
+
+get_revision:
+
+     [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\versioners\git.step 
+            Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/versioners/git.step
+            Target framework: Microsoft .NET Framework 4.0
+            Target(s) specified: go 
+            
+            
+            run_tasks:
+            
+                 [echo] 
+                 [echo] ====================
+                 [echo] GitVersioner
+                 [echo] ====================
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\versioners\git.pre.step exists (or with .ps1/.rb added to the end of it).
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\versioners\git.replace.step exists (or with .ps1/.rb added to the end of it).
+            
+            get_revision:
+            
+                 [echo] Getting revision number from working directory 'C:\Dev\Projects\Home\lazycowprojects\warmup' or remotely at git://github.com/chucknorris/warmup.git.
+            Attempting to resolve version. Must have a tag to get versioning from. If you do not, one will be created.
+            C:\Dev\Projects\Home\lazycowprojects\warmup\build\versioners
+            Running cmd /c git describe --abbrev=64 on git://github.com/chucknorris/warmup.git
+            fatal: No annotated tags can describe '5eda7773897de5a1014bdc1fcc8acbd15251843a'.
+            However, there were unannotated tags: try --tags.
+            
+            Running cmd /c git tag -a -m"for uppercut versioning" versioning.for.uc on git://github.com/chucknorris/warmup.git
+            
+            Running cmd /c git describe --abbrev=64 on git://github.com/chucknorris/warmup.git
+            
+            C:\Dev\Projects\Home\lazycowprojects\warmup\build\versioners
+            Running cmd /c git log -1 --pretty=oneline on git://github.com/chucknorris/warmup.git
+            
+               [delete] Deleting file C:\Dev\Projects\Home\lazycowprojects\warmup\build\versioners\_revision.xml.
+            
+            get_externally_provided_revision:
+            
+            
+            set_version_environment_variable:
+            
+            
+            run_normal_tasks:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\versioners\git.post.step exists (or with .ps1/.rb added to the end of it).
+            
+            go:
+            
+            
+            BUILD SUCCEEDED
+            
+     [echo] Using revision number: 0 and hash: 5eda7773897de5a1014bdc1fcc8acbd15251843a.
+
+get_build_number:
+
+     [echo] Using build number 0.
+
+get_drop_directory:
+
+     [echo] Compiled code drop directory will be C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop.
+     [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\policyChecks.step 
+            Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/policyChecks.step
+            Target framework: Microsoft .NET Framework 4.0
+            Target(s) specified: go 
+            
+            
+            run_tasks:
+            
+                 [echo] 
+                 [echo] ====================
+                 [echo] PolicyEnforcer
+                 [echo] ====================
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\policyChecks.pre.step exists (or with .ps1/.rb added to the end of it).
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\policyChecks.replace.step exists (or with .ps1/.rb added to the end of it).
+            
+            install_document_policy:
+            
+                 [echo] Checking for the existence of C:\Dev\Projects\Home\lazycowprojects\warmup\docs\Installation\warmupInstallation.doc. Do we fail the build if it is missing? false
+            
+            run_normal_tasks:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\policyChecks.post.step exists (or with .ps1/.rb added to the end of it).
+            
+            go:
+            
+            
+            BUILD SUCCEEDED
+            
+     [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\versionBuilder.step 
+            Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/versionBuilder.step
+            Target framework: Microsoft .NET Framework 4.0
+            Target(s) specified: go 
+            
+            
+            run_tasks:
+            
+                 [echo] 
+                 [echo] ====================
+                 [echo] VersionBuilder
+                 [echo] ====================
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\versionBuilder.pre.step exists (or with .ps1/.rb added to the end of it).
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\versionBuilder.replace.step exists (or with .ps1/.rb added to the end of it).
+            
+            error_check:
+            
+            
+            determine_language:
+            
+            
+            generate_assembly_info:
+            
+                 [echo] Generating SolutionVersion.cs with assembly version 0.6.5.0.
+              [asminfo] Generated file 'C:\Dev\Projects\Home\lazycowprojects\warmup\SolutionVersion.cs'.
+            
+            run_normal_tasks:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\versionBuilder.post.step exists (or with .ps1/.rb added to the end of it).
+            
+            go:
+            
+            
+            BUILD SUCCEEDED
+            
+     [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\generateBuildInfo.step 
+            Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/generateBuildInfo.step
+            Target framework: Microsoft .NET Framework 4.0
+            Target(s) specified: go 
+            
+            
+            run_tasks:
+            
+                 [echo] 
+                 [echo] ====================
+                 [echo] BuildInformation
+                 [echo] ====================
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\generateBuildInfo.pre.step exists (or with .ps1/.rb added to the end of it).
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\generateBuildInfo.replace.step exists (or with .ps1/.rb added to the end of it).
+            
+            generate_build_info_file:
+            
+                 [echo] Generating XML file with some information to possibly get merged in at C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\_BuildInfo.xml.
+            
+            run_normal_tasks:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\generateBuildInfo.post.step exists (or with .ps1/.rb added to the end of it).
+            
+            go:
+            
+            
+            BUILD SUCCEEDED
+            
+     [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\compile.step 
+            Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/compile.step
+            Target framework: Microsoft .NET Framework 4.0
+            Target(s) specified: go 
+            
+             [property] Target framework changed to "Microsoft .NET Framework 3.5".
+            
+            load_uppercut_assemblies:
+            
+            
+            run_tasks:
+            
+                 [echo] 
+                 [echo] ====================
+                 [echo] Compiler
+                 [echo] ====================
+            
+            prepare:
+            
+                 [echo] Removing and adding C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\build_artifacts\compile.
+                [mkdir] Creating directory 'C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\build_artifacts\compile'.
+            
+            check_for_multitargeting:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\compile.pre.step exists (or with .ps1/.rb added to the end of it).
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\compile.replace.step exists (or with .ps1/.rb added to the end of it).
+            
+            error_check:
+            
+            
+            build_code:
+            
+                 [echo] Compiling C:\Dev\Projects\Home\lazycowprojects\warmup\.\warmup.sln.
+            
+            build_dotNET_code:
+            
+            
+            build_dotNet_code_framework:
+            
+                 [echo] Building on 4.0
+             [property] Target framework changed to "Microsoft .NET Framework 4.0".
+                [mkdir] Creating directory 'C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\warmup'.
+              [msbuild]   warmup -> C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\warmup\warmup.exe
+              [msbuild] describe_TokenReplacement.cs(16,16): warning CS0414: The field 'warmup.Tests.describe_TokenReplacement.processedFile' is assigned but its value is never used [C:\Dev\Projects\Home\lazycowprojects\warmup\warmup.Tests\warmup.Tests.csproj]
+              [msbuild]   warmup.Tests -> C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\warmup\warmup.Tests.dll
+            
+            copy_documentation:
+            
+                 [echo] Building documentation files to C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\docs.
+            
+            copy_db:
+            
+                 [echo] Building database files to C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\warmup.Database.
+            
+            run_normal_tasks:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\compile.post.step exists (or with .ps1/.rb added to the end of it).
+            
+            set_file_attributes_to_normal:
+            
+                 [echo] Removing read only attributes that some source control things put on files in 'C:\Dev\Projects\Home\lazycowprojects\warmup\build_output'.
+               [attrib] Setting file attributes for 13 files to Normal.
+               [attrib] Setting attributes for 4 directories to Directory.
+            
+            go:
+            
+            
+            BUILD SUCCEEDED
+            
+     [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\environmentBuilder.step 
+            Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/environmentBuilder.step
+            Target framework: Microsoft .NET Framework 4.0
+            Target(s) specified: go 
+            
+            
+            run_tasks:
+            
+                 [echo] 
+                 [echo] ====================
+                 [echo] EnvironmentBuilder
+                 [echo] ====================
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\environmentBuilder.pre.step exists (or with .ps1/.rb added to the end of it).
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\environmentBuilder.replace.step exists (or with .ps1/.rb added to the end of it).
+            
+            build_code_environment_files:
+            
+                 [echo] ----------------
+                 [echo] ConfigBuilder: Building Templates from 'C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\warmup' with '*.template' as the name.
+                 [echo] ----------------
+            Looking for template files starting in "C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\warmup" and building to directory "C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\environment.files".
+            
+            build_database_environment_files:
+            
+                 [echo] ----------------
+                 [echo] SQLBuilder: Building Templates from 'C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\warmup.Database' with '*.template' as the name.
+                 [echo] ----------------
+            Looking for template files starting in "C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\warmup.Database" and building to directory "C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\warmup.Database".
+            
+            build_doc_environment_files:
+            
+                 [echo] ----------------
+                 [echo] DocumentBuilder: Building Templates from 'C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\docs' with '*.xml' as the name.
+                 [echo] ----------------
+            Looking for template files starting in "C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\docs" and building to directory "C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\docs".
+            
+            build_other_documentation_files:
+            
+                 [echo] ----------------
+                 [echo] DocumentBuilder Part Deux: Building Templates from 'C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\docs' with '*.template' as the name.
+                 [echo] ----------------
+            Looking for template files starting in "C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\docs" and building to directory "C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\docs".
+            
+            run_normal_tasks:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\environmentBuilder.post.step exists (or with .ps1/.rb added to the end of it).
+            
+            go:
+            
+            
+            BUILD SUCCEEDED
+            
+     [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\analyze.step 
+            Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/analyze.step
+            Target framework: Microsoft .NET Framework 4.0
+            Target(s) specified: go 
+            
+            
+            run_tasks:
+            
+                 [echo] 
+                 [echo] ====================
+                 [echo] Analyzers
+                 [echo] ====================
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\analyze.pre.step exists (or with .ps1/.rb added to the end of it).
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\analyze.replace.step exists (or with .ps1/.rb added to the end of it).
+            
+            run_analyzers:
+            
+                 [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\analyzers\test.step 
+                        Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/analyzers/test.step
+                        Target framework: Microsoft .NET Framework 4.0
+                        Target(s) specified: go 
+                        
+                        
+                        load_uppercut_assemblies:
+                        
+                        
+                        run_tasks:
+                        
+                             [echo] 
+                             [echo] ====================
+                             [echo] TestRunner
+                             [echo] ====================
+                        Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\analyzers\test.pre.step exists (or with .ps1/.rb added to the end of it).
+                        Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\analyzers\test.replace.step exists (or with .ps1/.rb added to the end of it).
+                        
+                        run_tests:
+                        
+                        
+                        set_normal_failure_mode:
+                        
+                        
+                        run_normal_tasks:
+                        
+                        Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\analyzers\test.post.step exists (or with .ps1/.rb added to the end of it).
+                        
+                        go:
+                        
+                        
+                        BUILD SUCCEEDED
+                        
+                 [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\analyzers\cover.step 
+                        Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/analyzers/cover.step
+                        Target framework: Microsoft .NET Framework 4.0
+                        Target(s) specified: go 
+                        
+                        
+                        load_uppercut_assemblies:
+                        
+                        
+                        run_tasks:
+                        
+                             [echo] 
+                             [echo] ====================
+                             [echo] CoverageRunner
+                             [echo] ====================
+                        Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\analyzers\cover.pre.step exists (or with .ps1/.rb added to the end of it).
+                        Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\analyzers\cover.replace.step exists (or with .ps1/.rb added to the end of it).
+                        
+                        run_coverage:
+                        
+                        
+                        set_normal_failure_mode:
+                        
+                        
+                        run_normal_tasks:
+                        
+                        Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\analyzers\cover.post.step exists (or with .ps1/.rb added to the end of it).
+                        
+                        go:
+                        
+                        
+                        BUILD SUCCEEDED
+                        
+                 [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\analyzers\ndepend.step 
+                        Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/analyzers/ndepend.step
+                        Target framework: Microsoft .NET Framework 4.0
+                        Target(s) specified: go 
+                        
+                        
+                        BUILD SUCCEEDED
+                        
+                 [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\analyzers\nitriq.step 
+                        Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/analyzers/nitriq.step
+                        Target framework: Microsoft .NET Framework 4.0
+                        Target(s) specified: go 
+                        
+                        
+                        BUILD SUCCEEDED
+                        
+                 [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\analyzers\metrics.step 
+                 [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\analyzers\metrics.step(112,3):
+                 [nant] Error loading buildfile.
+                 [nant]     The 'target' start tag on line 37 position 4 does not match the end tag of 'project'. Line 112, position 3.
+                 [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\analyzers\moma.step 
+                        Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/analyzers/moma.step
+                        Target framework: Microsoft .NET Framework 4.0
+                        Target(s) specified: go 
+                        
+                        
+                        BUILD SUCCEEDED
+                        
+            
+            run_normal_tasks:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\analyze.post.step exists (or with .ps1/.rb added to the end of it).
+            
+            go:
+            
+            
+            BUILD SUCCEEDED
+            
+     [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\package.step 
+            Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/package.step
+            Target framework: Microsoft .NET Framework 4.0
+            Target(s) specified: go 
+            
+            
+            run_tasks:
+            
+                 [echo] 
+                 [echo] ====================
+                 [echo] PackageBuilder
+                 [echo] ====================
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\package.pre.step exists (or with .ps1/.rb added to the end of it).
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\package.replace.step exists (or with .ps1/.rb added to the end of it).
+            
+            prepare:
+            
+                 [echo] Removing and adding C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop.
+                [mkdir] Creating directory 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop'.
+            
+            build_artifacts:
+            
+                 [echo] Packaging build artifacts (such as test results) to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\build_artifacts.
+                 [copy] Copying 1 file to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\build_artifacts'.
+            
+            app:
+            
+                 [echo] Packaging application items to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\warmup.
+                 [copy] Copying 6 files to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\warmup'.
+            
+            app_published:
+            
+                 [echo] Packaging published applications to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\_PublishedApplications.
+            
+            web:
+            
+                 [echo] Packaging website to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\_PublishedWebSites.
+            
+            db:
+            
+                 [echo] Packaging database files to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\warmup.Database.
+            
+            reports:
+            
+                 [echo] Packaging reports to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\warmup.Reports.
+            
+            file_server:
+            
+                 [echo] Packaging file server items to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\file.server.
+                 [echo] Packaging output fileserver items to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\FileServer.
+            
+            environment_files:
+            
+                 [echo] Packaging environment files to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\environment.files.
+            
+            deployment_scripts:
+            
+                 [echo] Packaging deployment scripts to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\deployment.
+            
+            settings_files:
+            
+                 [echo] Packaging settings files to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\settings.
+            
+            set_file_attributes_to_normal:
+            
+                 [echo] Removing read only attributes that some source control things put on files in 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop'.
+               [attrib] Setting file attributes for 7 files to Normal.
+               [attrib] Setting attributes for 3 directories to Directory.
+            
+            build_deployment_files:
+            
+                 [echo] Building Deployment Files.
+                 [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\deploymentBuilder.step 
+                        Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/deploymentBuilder.step
+                        Target framework: Microsoft .NET Framework 4.0
+                        Target(s) specified: go 
+                        
+                        
+                        run_tasks:
+                        
+                             [echo] 
+                             [echo] ====================
+                             [echo] DeploymentBuilder
+                             [echo] ====================
+                        Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\deploymentBuilder.pre.step exists (or with .ps1/.rb added to the end of it).
+                        Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\deploymentBuilder.replace.step exists (or with .ps1/.rb added to the end of it).
+                        
+                        set_file_attributes_to_normal:
+                        
+                             [echo] Removing read only attributes that some source control things put on files in 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\deployment'.
+                        Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\deploymentBuilder.post.step exists (or with .ps1/.rb added to the end of it).
+                        
+                        go:
+                        
+                        
+                        BUILD SUCCEEDED
+                        
+            
+            build_info_file:
+            
+                 [echo] Copying C:\Dev\Projects\Home\lazycowprojects\warmup\build_output\_BuildInfo.xml to build_artifacts, warmup, and deployment in the C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop folder.
+                 [copy] Copying 1 file to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\build_artifacts'.
+                 [copy] Copying 1 file to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\warmup'.
+                 [copy] Copying 1 file to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\deployment'.
+            
+            documentation:
+            
+                 [echo] Packaging documentation files to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\docs.
+            
+            run_normal_tasks:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\package.post.step exists (or with .ps1/.rb added to the end of it).
+                        [echo] 
+                        [echo] ====================
+                        [echo] package POST Extension
+                        [echo] ====================
+                        [echo] Running 'C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\package.post.step' - details will be in the build.log.
+                 [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\package.post.step 
+                        Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build.custom/package.post.step
+                        Target framework: Microsoft .NET Framework 4.0
+                        Target(s) specified: go 
+                        
+                        
+                        copy_notices:
+                        
+                             [echo] Packaging readme file to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop.
+                             [copy] Copying 1 file to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\ReadMe.txt'.
+                             [echo] Packaging other legal stuff to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\LEGAL.
+                             [copy] Copying 3 files to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\LEGAL'.
+                        
+                        go:
+                        
+                        
+                        BUILD SUCCEEDED
+                        
+            
+            go:
+            
+            
+            BUILD SUCCEEDED
+            
+     [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\gemsPrepare.step 
+            Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/gemsPrepare.step
+            Target framework: Microsoft .NET Framework 4.0
+            Target(s) specified: go 
+            
+            
+            run_tasks:
+            
+                 [echo] 
+                 [echo] ====================
+                 [echo] GemsPrepare
+                 [echo] ====================
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\gemsPrepare.pre.step exists (or with .ps1/.rb added to the end of it).
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\gemsPrepare.replace.step exists (or with .ps1/.rb added to the end of it).
+            
+            prepare:
+            
+                 [echo] Removing and adding C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems.
+                [mkdir] Creating directory 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems'.
+            
+            copy_gems_folder:
+            
+                 [echo] Packaging gem specifications and special files from C:\Dev\Projects\Home\lazycowprojects\warmup\gems to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems.
+                 [copy] Copying 2 files to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems'.
+            
+            copy_app_drop_to_lib_folder:
+            
+                 [echo] Packaging application gem pieces into C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems\lib from C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\warmup.
+                 [copy] Copying 7 files to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems\lib'.
+            
+            copy_docs_to_doc_folder:
+            
+                 [echo] Packaging docs to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems\docs.
+            
+            copy_notices_to_doc_folder:
+            
+                 [echo] Packaging readme file to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems\docs.
+                 [copy] C:\Dev\Projects\Home\lazycowprojects\warmup\build\gemsPrepare.step(99,6):
+                 [copy] Could not find file 'C:\Dev\Projects\Home\lazycowprojects\warmupREADME.markdown' to copy.
+                 [echo] Packaging other legal stuff to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems\docs.
+                 [copy] Copying 3 files to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems\docs'.
+            
+            update_gem_build_date:
+            
+            
+            generate_version_file:
+            
+                 [echo] Generating C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems\VERSION with 0.6.5.0 for the version
+            
+            run_normal_tasks:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\gemsPrepare.post.step exists (or with .ps1/.rb added to the end of it).
+                        [echo] 
+                        [echo] ====================
+                        [echo] gemsPrepare POST Extension
+                        [echo] ====================
+                        [echo] Running 'C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\gemsPrepare.post.step' - details will be in the build.log.
+                 [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\gemsPrepare.post.step 
+                        Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build.custom/gemsPrepare.post.step
+                        Target framework: Microsoft .NET Framework 4.0
+                        Target(s) specified: go 
+                        
+                        
+                        run_tasks:
+                        
+                             [copy] Copying 7 files to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems\bin'.
+                           [delete] Deleting 7 files.
+                           [delete] Deleted 1 directories.
+                        
+                        go:
+                        
+                        
+                        BUILD SUCCEEDED
+                        
+            
+            go:
+            
+            
+            BUILD SUCCEEDED
+            
+     [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\gemsBuild.step 
+            Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/gemsBuild.step
+            Target framework: Microsoft .NET Framework 4.0
+            Target(s) specified: go 
+            
+            
+            run_tasks:
+            
+                 [echo] 
+                 [echo] ====================
+                 [echo] GemsBuild
+                 [echo] ====================
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\gemsBuild.pre.step exists (or with .ps1/.rb added to the end of it).
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\gemsBuild.replace.step exists (or with .ps1/.rb added to the end of it).
+            
+            build_gem:
+            
+                 [echo] Finding and building all gems in C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\gems.
+                 [exec] 'gem' is not recognized as an internal or external command,
+                 [exec] operable program or batch file.
+                 [exec] C:\Dev\Projects\Home\lazycowprojects\warmup\build\gemsBuild.step(66,10):
+                 [exec] External Program Failed: cmd (return code was 1)
+            
+            remove_gem_files:
+            
+               [delete] Deleting 13 files.
+               [delete] Deleted 2 directories.
+            
+            run_normal_tasks:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\gemsBuild.post.step exists (or with .ps1/.rb added to the end of it).
+                        [echo] 
+                        [echo] ====================
+                        [echo] gemsBuild POST Extension
+                        [echo] ====================
+                        [echo] Running 'C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\gemsBuild.post.step' - details will be in the build.log.
+                 [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\gemsBuild.post.step 
+                        Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build.custom/gemsBuild.post.step
+                        Target framework: Microsoft .NET Framework 4.0
+                        Target(s) specified: go 
+                        
+                        
+                        run_tasks:
+                        
+                        
+                        go:
+                        
+                        
+                        BUILD SUCCEEDED
+                        
+            
+            go:
+            
+            
+            BUILD SUCCEEDED
+            
+     [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\nugetPrepare.step 
+            Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/nugetPrepare.step
+            Target framework: Microsoft .NET Framework 4.0
+            Target(s) specified: go 
+            
+            
+            run_tasks:
+            
+                 [echo] 
+                 [echo] ====================
+                 [echo] nugetPrepare
+                 [echo] ====================
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\nugetPrepare.pre.step exists (or with .ps1/.rb added to the end of it).
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\nugetPrepare.replace.step exists (or with .ps1/.rb added to the end of it).
+            
+            prepare:
+            
+                 [echo] Removing and adding C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget.
+                [mkdir] Creating directory 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget'.
+            
+            copy_nuget_folder:
+            
+                 [echo] Packaging nuspec specifications and special files from C:\Dev\Projects\Home\lazycowprojects\warmup\nuget to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget.
+                 [copy] Copying 3 files to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget'.
+            
+            copy_app_drop_to_lib_folder:
+            
+                 [echo] Packaging warmup nuget pieces into C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget\lib from C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\warmup.
+                 [copy] Copying 7 files to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget\lib'.
+            
+            copy_docs_to_doc_folder:
+            
+                 [echo] Packaging docs to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget\docs.
+            
+            copy_notices_to_doc_folder:
+            
+                 [echo] Packaging readme file to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget\docs.
+                 [copy] C:\Dev\Projects\Home\lazycowprojects\warmup\build\nugetPrepare.step(97,6):
+                 [copy] Could not find file 'C:\Dev\Projects\Home\lazycowprojects\warmupREADME.markdown' to copy.
+                 [echo] Packaging other legal stuff to C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget\docs.
+                 [copy] Copying 3 files to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget\docs'.
+            
+            set_file_attributes_to_normal:
+            
+                 [echo] Removing read only attributes that some source control things put on files in 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget'.
+               [attrib] Setting file attributes for 13 files to Normal.
+               [attrib] Setting attributes for 4 directories to Directory.
+            
+            update_nuspecs_with_version:
+            
+                 [echo] Finding and updating version in all nuspec files in C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget.
+                 [echo] Replacing version in 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget\warmup.nuspec'
+              [xmlpoke] Found '1' nodes matching XPath expression '/package/metadata/version'.
+            
+            run_normal_tasks:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\nugetPrepare.post.step exists (or with .ps1/.rb added to the end of it).
+                        [echo] 
+                        [echo] ====================
+                        [echo] nugetPrepare POST Extension
+                        [echo] ====================
+                        [echo] Running 'C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\nugetPrepare.post.step' - details will be in the build.log.
+                 [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\nugetPrepare.post.step 
+                        Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build.custom/nugetPrepare.post.step
+                        Target framework: Microsoft .NET Framework 4.0
+                        Target(s) specified: go 
+                        
+                        
+                        rename_lib_to_bin:
+                        
+                             [echo] Moving contents of lib to bin C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget.
+                             [copy] Copying 7 files to 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget\bin'.
+                           [delete] Deleting directory 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget\lib'.
+                        
+                        run_tasks:
+                        
+                        
+                        go:
+                        
+                        
+                        BUILD SUCCEEDED
+                        
+            
+            go:
+            
+            
+            BUILD SUCCEEDED
+            
+     [nant] C:\Dev\Projects\Home\lazycowprojects\warmup\build\nugetBuild.step 
+            Buildfile: file:///C:/Dev/Projects/Home/lazycowprojects/warmup/build/nugetBuild.step
+            Target framework: Microsoft .NET Framework 4.0
+            Target(s) specified: go 
+            
+            
+            run_tasks:
+            
+                 [echo] 
+                 [echo] ====================
+                 [echo] nugetBuild
+                 [echo] ====================
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\nugetBuild.pre.step exists (or with .ps1/.rb added to the end of it).
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\nugetBuild.replace.step exists (or with .ps1/.rb added to the end of it).
+            
+            build_nugget:
+            
+                 [echo] Finding and building all nuggets in C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget.
+                 [echo] executing 'C:\Dev\Projects\Home\lazycowprojects\warmup\lib\NuGet\NuGet.exe pack C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget\warmup.nuspec'
+                 [exec] Attempting to build package from 'warmup.nuspec'.
+                 [exec] Successfully created package 'C:\Dev\Projects\Home\lazycowprojects\warmup\code_drop\nuget\warmup.0.6.5.0.nupkg'.
+                 [exec] 
+                 [exec] WARNING: 2 issue(s) found with package 'warmup'.
+                 [exec] 
+                 [exec] Issue: Assembly outside lib folder.
+                 [exec] Description: The assembly 'bin\Ionic.Zip.dll' is not inside the 'lib' folder and hence it won't be added as reference when the package is installed into a project.
+                 [exec] Solution: Move it into the 'lib' folder if it should be referenced.
+                 [exec] 
+                 [exec] Issue: Assembly outside lib folder.
+                 [exec] Description: The assembly 'bin\NSpec.dll' is not inside the 'lib' folder and hence it won't be added as reference when the package is installed into a project.
+                 [exec] Solution: Move it into the 'lib' folder if it should be referenced.
+            
+            remove_nuget_files:
+            
+               [delete] Deleting 13 files.
+               [delete] Deleted 4 directories.
+            
+            run_normal_tasks:
+            
+            Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\nugetBuild.post.step exists (or with .ps1/.rb added to the end of it).
+            
+            go:
+            
+            
+            BUILD SUCCEEDED
+            
+
+run_normal_tasks:
+
+Running custom tasks if C:\Dev\Projects\Home\lazycowprojects\warmup\build.custom\default.post.build exists (or with .ps1/.rb added to the end of it).
+
+report_finish_time:
+
+     [echo] 
+     [echo] ====================
+     [echo] UppercuTBuild - FINISHED!
+     [echo] ====================
+     [echo] Build for warmup finished at 08/25/2012 14:56:13 with UppercuT version 1.4.2.0.
+
+stop_recorder:
+

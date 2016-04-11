@@ -1,0 +1,141 @@
+<?xml version="1.0" ?>
+<project name="ImdbPopulate" default="test" xmlns="http://nant.sf.net/schemas/nant.xsd">
+	
+	
+	<!--Properties-->
+	
+  <property name="src.folder" value="src"/>
+  <property name="src.sln.file" value="src/ImdbPopulate.sln"/>
+  <property name="src.sln.configuration" value="Release"/>
+  
+  <property name="src.sln.configuration.prefix" value=""/>
+  <property name="build.dir" value="build" />
+  <property name="build.debug.dir" value="${build.dir}/${src.sln.configuration}" dynamic="true"  />  
+  <property name="build.reports.dir" value="${build.dir}/reports" />
+  <property name="build.temp.dir" value="${build.dir}/temp" />
+  <property name="build.dist.dir" value="${build.dir}/dist" />
+  <property name="msbuild.executeable" value="${framework::get-framework-directory(framework::get-target-framework())}\msbuild.exe"/>
+  <property name="msbuild.executeable" value="C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" />
+  <property name="msbuild.bin.folder" value="bin/${src.sln.configuration}"/>
+  <property name="run-unit-tests.dir" value="${build.debug.dir}\ImdbPopulate.UnitTests" />
+	<property name="run-unit-tests.dll" value="${run-unit-tests.dir}\ImdbPopulate.UnitTests.dll" />
+  <property name="run-unit-tests.config" value="${run-unit-tests.dll}.config" />
+
+  <!-- Version -->
+  <property name="version.major" value="0"/>
+  <property name="version.minor" value="1"/>
+  <property name="version.build" value="0" />
+  <property name="version.revision" value="0" />
+  <property name="project.fullversion" value="${version.major}.${version.minor}.${version.build}" dynamic="true" />
+  <property name="project.fullversion.file" value="${version.major}.${version.minor}.${version.build}.${version.revision}" dynamic="true" />
+  
+  <!-- User targets -->
+
+  <target name="test" depends="compile, run-unit-tests" description="Compile and Run Tests" />
+  <target name="cover" depends="compile, run-code-cover-tests" description="Compile and Run Tests" />
+  <target name="full" depends="clean, test, dist"	description="Compiles, tests, and produces distributions" />
+
+	<!-- Internal targets -->
+
+  <target name="clean" description="Delete Automated Build artifacts">
+    <delete dir="${build.dir}" if="${directory::exists(build.dir)}"/>
+    <delete failonerror="false">
+      <fileset basedir="${src.folder}">
+        <include name="**\Bin\Release\**"/>
+        <include name="**\Bin\Debug\**"/>
+        <include name="**\Obj\Debug\**"/>
+        <include name="**\Obj\Release\**"/>
+      </fileset>
+    </delete>
+  </target>
+
+
+  <target name="compile" description="Compiles using the AutomatedDebug Configuration">
+    <exec
+		  program="${msbuild.executeable}"
+		  commandline="${src.sln.file} /t:clean /p:Configuration=${src.sln.configuration} /v:q "
+		  workingdir="." />
+    <echo message="${msbuild.executeable}" />
+    <exec
+		  program="${msbuild.executeable}"
+		  commandline="${src.sln.file} /t:rebuild /p:Configuration=${src.sln.configuration} /v:q"
+		  workingdir="." />
+  </target>
+
+  <target name="msbuild.copy">
+    <copy todir="${build.debug.dir}\${src.sln.configuration.prefix}ImdbPopulate.Console">
+      <fileset basedir="${src.folder}\ImdbPopulate.Console\${msbuild.bin.folder}">
+        <include name="*.*"/>
+      </fileset>
+    </copy>
+    <copy todir="${build.debug.dir}\${src.sln.configuration.prefix}ImdbPopulate.Tests">
+      <fileset basedir="${src.folder}\ImdbPopulate.Tests\${msbuild.bin.folder}">
+        <include name="*.*"/>
+      </fileset>
+    </copy>
+  </target>
+  
+	<target name="run-code-cover-tests" description="Code coverage of unit tests">
+    <property name="NUnit.console" value="Tools\nunit\nunit-console.exe" />
+    <property name="NUnit.console.args" value="/exclude=Integration Vault.UnitTests.dll" />
+    <echo message="${NUnit.console} ${run-unit-tests.dir} Vault.UnitTests.dll " />
+    <exec program="regsvr32"  commandline="/s tools\PartCover\PartCover.CorDriver.dll" />
+    <exec program="Tools\PartCover\PartCover.exe" failonerror="false" >
+      <arg value="--target &quot;${NUnit.console}&quot;" />
+      <arg value="--target-work-dir &quot;${run-unit-tests.dir}&quot;"/>
+      <arg value="--target-args  &quot;${NUnit.console.args}&quot;" />
+      <arg value="--include &quot;[Vault*]*&quot;" />
+      <arg value="--exclude &quot;[nunit*]*&quot;" /> 
+      <arg value="--output &quot;${build.reports.dir}\partcover.xml&quot;" />
+    </exec>
+    <echo>tools\PartCover\PartCover.Browser.exe build\reports\partcover.xml</echo>
+  </target>
+
+  <target name="run-unit-tests">
+    <mkdir dir="${build.reports.dir}"/>
+    <foreach item="Folder" in="${build.debug.dir}" property="foldername">
+      <do>
+        <if test="${string::contains(foldername,'Tests')}" >
+          <property name="nunit2-tests-by-Folder-dll" value="${path::combine(foldername,path::get-file-name(foldername) + '.dll'  )}" />
+          <echo message="Run nunit on ${nunit2-tests-by-Folder-dll}" />
+
+
+          <!-- Run Unit Tests under NUnit 2.5 -->
+          <exec program="tools\nunit\nunit-console.exe">
+            <arg value="${nunit2-tests-by-Folder-dll}" />
+          </exec>
+          <!-- 
+          <nunit2 verbose="true" haltonfailure="true" failonerror="true">
+            <formatter type="Xml" usefile="true" extension=".xml" outputdir="${build.reports.dir}"/>
+            <test assemblyname="${nunit2-tests-by-Folder-dll}" haltonfailure="true">
+              <categories>
+                <exclude name="Integration"/>
+              </categories>
+            </test>
+          </nunit2>-->
+        </if>
+      </do>
+    </foreach>
+  </target>
+	
+	<target name="dist">
+    <property name="dist.name" value="ImdbPopulate ${assembly.version}" />
+    <property name="dist.fromfolder" value="${build.debug.dir}\ImdbPopulate.Console" />
+	
+		<copy todir="${build.temp.dir}">
+			<fileset basedir="${dist.fromfolder}">
+				<include name="**\*"/>
+				<exclude name="**\*.pdb" />
+			</fileset>
+		</copy>
+		
+		<mkdir dir="${build.dist.dir}" unless="${directory::exists(build.dist.dir)}"  />
+		<zip zipfile="${build.dist.dir}\${dist.name}.zip">
+			<fileset basedir="${build.temp.dir}">
+				<include name="**\*" />
+			</fileset>
+		</zip>
+    <delete dir="${build.temp.dir}" />
+	</target>
+	
+</project>

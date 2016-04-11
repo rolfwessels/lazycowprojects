@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.preference.EditTextPreference
+            android:key="DefaultHours"
+            android:title="@string/default_hour_title"
+            android:summary="@string/default_hour_summary"
+            android:defaultValue="00"
+            />
+    <android.preference.EditTextPreference
+            android:key="DefaultMinutes"
+            android:title="@string/default_min_title"
+            android:summary="@string/default_min_summary"
+            android:defaultValue="30"
+            />
+    <android.preference.RingtonePreference
+            android:key="Ringtone"
+            android:title="@string/default_ringtone_title"
+            android:summary="@string/default_ringtone_summary"
+            android:defaultValue="30"
+            />
+</PreferenceScreen>

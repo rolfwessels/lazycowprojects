@@ -1,0 +1,22 @@
+#######################################
+# Syntax Coloring Map For Matrix
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+WorldMood	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+RegisterTweets	KEYWORD2
+ComputeCurrentMood	KEYWORD2
+ComputeCurrentMoodIntensity	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+

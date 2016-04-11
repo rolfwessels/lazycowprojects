@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile
+	Name="AVR build core"
+	Version="8.00"
+	>
+	<Rules>
+		<CustomBuildRule
+			Name="GCC_C_AVR"
+			DisplayName="GCC C AVR"
+			CommandLine="call .\_vsaddin\build_c_item.bat $(IntDir) $(InputFileName) $(InputName) $(InputPath) $(InputDir) $(ProjectName) $(ProjectDir)"
+			Outputs="$(IntDir)\$(InputFileName).o"
+			FileExtensions="*.c"
+			ExecutionDescription="$(InputFileName)"
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+		<CustomBuildRule
+			Name="GCC_CPP_AVR"
+			DisplayName="GCC CPP AVR"
+			CommandLine="call .\_vsaddin\build_cpp_item.bat $(IntDir) $(InputFileName) $(InputName) $(InputPath) $(InputDir) $(ProjectName) $(ProjectDir)"
+			Outputs="$(InputFileName).o"
+			FileExtensions="*.cpp"
+			ExecutionDescription="$(InputFileName)"
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+	</Rules>
+</VisualStudioToolFile>

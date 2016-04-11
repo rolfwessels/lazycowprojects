@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+ <TextView
+         android:id="@+id/time_text"
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         android:text="00:00:00"
+         android:textSize="41sp"
+         android:textColor="@color/timer_text_color"/>
+     <Button
+         android:id="@+id/clear_button"
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         android:text="X"/>
+</LinearLayout>

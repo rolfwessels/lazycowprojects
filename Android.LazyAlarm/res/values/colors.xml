@@ -1,0 +1,5 @@
+<resources>
+    <color name="timer_text_color">#FFFFFF</color>
+    <color name="timer_text_color_ring_ring">#FF5252</color>
+    <color name="timer_text_color_cleared">#B8B8B8</color>
+</resources>

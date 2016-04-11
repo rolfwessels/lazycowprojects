@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<project name="VaultExport" default="full" xmlns:nant="http://nant.sourceforge.net/release/0.85/nant.xsd">
+	
+
+	<!-- Properties -->
+  <property name="src.folder" value="src\"/>
+  <property name="src.folder.app" value="src\Wp7SolutionTemplate.App"/>
+  <property name="src.folder.deploy" value="src\Wp7SolutionTemplate.Deploy"/>
+  <property name="src.folder.tests" value="src\Wp7SolutionTemplate.Tests"/>
+  <property name="src.sln.file" value="src\Wp7SolutionTemplate.sln"/>
+  <property name="src.sln.configuration" value="Release" overwrite="false" />
+  <property name="src.sln.configuration.bin.folder" value="Release" overwrite="false" />
+  <property name="src.sln.configuration.prefix" value="" overwrite="false" />
+  <property name="src.sln.Constants" value="SILVERLIGHT;WINDOWS_PHONE;" overwrite="false"/>
+  <property name="dist.storage.path" value="C:\Users\Rolf\Dropbox\Public\"/>
+  
+  <property name="msbuild.executeable" value="${framework::get-framework-directory(framework::get-target-framework())}\msbuild.exe"/>
+  <property name="msbuild.executeable" value="C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" />
+  <property name="msbuild.csc.executeable" value="C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe"/>
+  <property name="build.folder" value="build\release" dynamic="true" />
+  <property name="build.dist.dir" value="build\dist"/>
+  <property name="msbuild.bin.folder" value="\bin\${src.sln.configuration.bin.folder}\" dynamic="true" />
+  <property name="mercurial.exe" value="hg.exe"/>
+  <property name="mercurial.path" value="C:\Program Files\TortoiseHg\"/>
+  
+
+  <!-- Version -->
+  <property name="version.major" value="0"/>
+  <property name="version.minor" value="0"/>
+  <property name="version.build" value="1" />
+  <property name="version.revision" value="0" />
+  <property name="project.fullversion" value="${version.major}.${version.minor}.${version.build}" dynamic="true" />
+  <property name="project.fullversion.file" value="${version.major}.${version.minor}.${version.build}.${version.revision}" dynamic="true" />
+ 
+  <!-- Teamcity-->
+  <property name="version.build" value="${build.number}" if="${property::exists('build.number')}"/>
+  <property name="version.revision" value="${build.vcs.number.1}" if="${property::exists('build.vcs.number.1')}" />
+
+  <!-- User targets -->
+  <target name="clean" depends="delete.folders"  description="Delete Automated Build artifacts"/>
+  <target name="compile" depends="msbuild , msbuild.copy" description="Compiles using the debug Configuration"/>
+  <target name="test" depends="compile" description="Compile and Run Tests"/>
+  <target name="full" depends="clean, version  , compile, msbuild.copy.old, dist , dist.to.storage, hg.commit , version.update" description="Compiles, tests, and produces distributions"/>
+  <target name="deploy" depends="clean, compile, dist , deploy.toPhone" description="Compiles, tests, and produces distributions"/>
+  <target name="testonphone" depends="clean, msbuild.setDebug, compile, dist" description="Compiles, tests, and produces distributions"/>
+  
+  <!-- Internal targets -->
+  <target name="msbuild.setDebug">
+    <property name="src.sln.configuration" value="Debug"/>
+  </target>
+  
+  <target name="delete.folders" description="Compiles using the AutomatedDebug Configuration">
+    <delete failonerror="true">
+      <fileset basedir="${src.folder}">
+        <include name="**\Bin\Release\**"/>
+        <include name="**\Bin\Debug\**"/>
+        <include name="**\Obj\Debug\**"/>
+        <include name="**\Obj\Release\**"/>       
+        
+      </fileset>
+    </delete>
+    <delete dir="/obj" failonerror="false"/>
+    <delete dir="${src.folder.tests}/bin" failonerror="false"/>
+    <delete dir="${src.folder.tests}/obj" failonerror="false"/>
+    <delete dir="${build.folder}" failonerror="false"/>
+  </target>
+  
+  <target name="msbuild" description="Compiles using the AutomatedDebug Configuration">
+    <echo message="${msbuild.executeable}" />
+    <exec
+		  program="${msbuild.executeable}"
+		  commandline="${src.sln.file} /t:clean /p:Configuration=${src.sln.configuration}  /v:q "
+		  workingdir="." />
+    <echo message="${msbuild.executeable}" />
+
+    <echo message="${msbuild.executeable} ${src.sln.file} /t:rebuild /p:Configuration=${src.sln.configuration} /p:DefineConstants=&quot;${src.sln.Constants}&quot; /v:q" />
+    <exec
+		  program="${msbuild.executeable}"
+		  commandline="${src.sln.file} /t:rebuild /p:Configuration=${src.sln.configuration} /p:DefineConstants=&quot;${src.sln.Constants}&quot; /v:q"
+		  workingdir="." />
+  </target>
+
+  <target name="msbuild.copy">
+    <copy todir="${build.folder}\${src.sln.configuration.prefix}Wp7SolutionTemplate.App">
+      <fileset basedir="${src.folder.app}${msbuild.bin.folder}">
+        <include name="*.xap"/>
+        <include name="ApplicationIcon.png"/>
+        
+      </fileset>
+    </copy>
+    <copy todir="${build.folder}\${src.sln.configuration.prefix}Wp7SolutionTemplate.Tests">
+      <fileset basedir="${src.folder.tests}${msbuild.bin.folder}">
+        <include name="*.xap"/>
+        <include name="ApplicationIcon.png"/>
+      </fileset>
+    </copy>
+    <copy todir="${build.folder}\${src.sln.configuration.prefix}Wp7SolutionTemplate.App">
+      <fileset basedir="${src.folder.deploy}${msbuild.bin.folder}">
+        <include name="*.exe"/>
+        <include name="*.dll"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="msbuild.copy.old">
+    <copy todir="${build.folder}\${src.sln.configuration.prefix}Wp7SolutionTemplate">
+      <fileset basedir="var\OldVersions">
+        <include name="*.xap"/>
+        <include name="*.bat"/>
+      </fileset>
+    </copy>
+  </target>
+
+
+
+  <target name="version" description="Generate AssemblyInfo">
+    <echo message="Marking build with version ${project.fullversion}" />
+
+    <loadfile  file="${src.folder.app}/properties/WMAppManifest.xml" property="wmappmanigest.data" />
+    <regex pattern="(?'replaceme'Version=\&quot;[0-9].[0-9].[0-9]+.[0-9]\&quot;)" input="${wmappmanigest.data}" />
+    <echo message="${replaceme}" />
+    <echo message="${string::replace(wmappmanigest.data, replaceme, 'Version=&quot;'+project.fullversion.file+'&quot;')}" file="${src.folder.app}/properties/WMAppManifest.xml" />
+
+    <loadfile  file="${src.folder.app}/properties/CommonAssemblyInfo.cs" property="CommonAssemblyInfo.Data" />
+    <regex pattern="\[assembly: (?'replaceme'AssemblyVersion.*)\]" input="${CommonAssemblyInfo.Data}" />
+    <echo message="${replaceme}" />
+    <echo message="${string::replace(CommonAssemblyInfo.Data, replaceme, 'AssemblyVersion(&quot;'+project.fullversion.file+'&quot;)')}" file="${src.folder.app}/properties/CommonAssemblyInfo.cs"/>
+    
+  </target>
+  
+  <target name="version.update" description="Generate AssemblyInfo">
+    <xmlpeek
+    file="Wp7SolutionTemplate.build "
+    xpath="/project/property[@name = 'version.build']/@value"
+    property="version.build.read">
+    </xmlpeek>
+
+    <loadfile  file="Wp7SolutionTemplate.build " property="build.Data" />
+    <regex pattern="property (?'replaceme'name=&quot;version.build&quot;.*)" input="${build.Data}" />
+    <echo message="${replaceme}" />
+    <property name="new.version.build" value="${int::parse(version.build.read)+1}"/>
+    <echo message="${string::replace(build.Data, replaceme, 'name=&quot;version.build&quot; value=&quot;'+new.version.build+'&quot; />')}" file="Wp7SolutionTemplate.build "/>
+
+  </target>
+
+  <target name="dist">
+    <mkdir dir="${build.dist.dir}" unless="${directory::exists(build.dist.dir)}"/>
+    <foreach item="Folder" in="${build.folder}" property="foldername">
+      <do>
+        <if test="${not (string::contains(foldername,'Tests'))}" >
+          <property name="dist.from.folder" value="${foldername}" />
+          <property name="dist.to.folder" value="${path::combine(build.dist.dir,path::get-file-name(foldername)+ '.v' + project.fullversion + '.zip'  )}" />
+          <echo message="Zip from ${dist.from.folder}" />
+          <echo message="Zip to ${dist.to.folder}" />
+
+          <zip zipfile="${dist.to.folder}">
+            <fileset basedir="${dist.from.folder}">
+              <include name="**\*"/>
+            </fileset>
+          </zip>
+        </if>
+      </do>
+    </foreach>
+  </target>
+  
+  <target name="hg.commit">
+    <exec program="${mercurial.exe}" commandline="commit -m &quot;Commit before tagging&quot;"  failonerror="false" basedir="${mercurial.path}"  workingdir="./" />
+    <exec program="${mercurial.exe}" commandline="tag &quot;${'Version ' + project.fullversion}&quot;"  failonerror="true" basedir="${mercurial.path}"  workingdir="./" />
+  </target>
+
+  <target name="hg.src" depends="version" >
+    <exec program="${mercurial.exe}" commandline="archive --repository .\ -r tip -t zip -- ${dist.storage.path}Wp7SolutionTemplate.src.v${project.fullversion}.zip"  failonerror="true" basedir="${mercurial.path}"  workingdir="./" />
+  </target>
+  
+  <target name="dist.to.storage">
+    <copy todir="${dist.storage.path}" overwrite="true">
+      <fileset basedir="${build.dist.dir}">
+        <include name="**\*.zip"/>
+      </fileset>
+    </copy>
+  </target>
+
+	<target name="msbuild.SetReleaseDebug">
+    <property name="src.sln.configuration" value="Debug"  />
+    <property name="src.sln.configuration.prefix" value="Debug."  />
+  </target>
+  
+</project>

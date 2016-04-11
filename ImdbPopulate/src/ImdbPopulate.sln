@@ -1,0 +1,44 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0691ABF2-B3C7-43BF-9862-2D8D1299CE58}"
+	ProjectSection(SolutionItems) = preProject
+		..\go.bat = ..\go.bat
+		..\ImdbPopulate.build = ..\ImdbPopulate.build
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImdbPopulate.Console", "ImdbPopulate.Console\ImdbPopulate.Console.csproj", "{0F9C4606-7896-4839-90B9-4473D15DFAFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImdbPopulate.Core", "ImdbPopulate.Core\ImdbPopulate.Core.csproj", "{6B955EE7-2AC5-42E8-BA94-FE9EA2D49DDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImdbPopulate.Tests", "ImdbPopulate.Tests\ImdbPopulate.Tests.csproj", "{54F0B648-DB1E-45A4-BA1B-FEB0AF16023E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AutomatedDebug|Any CPU = AutomatedDebug|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F9C4606-7896-4839-90B9-4473D15DFAFB}.AutomatedDebug|Any CPU.ActiveCfg = AutomatedDebug|Any CPU
+		{0F9C4606-7896-4839-90B9-4473D15DFAFB}.AutomatedDebug|Any CPU.Build.0 = AutomatedDebug|Any CPU
+		{0F9C4606-7896-4839-90B9-4473D15DFAFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F9C4606-7896-4839-90B9-4473D15DFAFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F9C4606-7896-4839-90B9-4473D15DFAFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F9C4606-7896-4839-90B9-4473D15DFAFB}.Release|Any CPU.Build.0 = Release|Any CPU	
+		{6B955EE7-2AC5-42E8-BA94-FE9EA2D49DDF}.AutomatedDebug|Any CPU.ActiveCfg = AutomatedDebug|Any CPU
+		{6B955EE7-2AC5-42E8-BA94-FE9EA2D49DDF}.AutomatedDebug|Any CPU.Build.0 = AutomatedDebug|Any CPU
+		{6B955EE7-2AC5-42E8-BA94-FE9EA2D49DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B955EE7-2AC5-42E8-BA94-FE9EA2D49DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B955EE7-2AC5-42E8-BA94-FE9EA2D49DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B955EE7-2AC5-42E8-BA94-FE9EA2D49DDF}.Release|Any CPU.Build.0 = Release|Any CPU	
+		{54F0B648-DB1E-45A4-BA1B-FEB0AF16023E}.AutomatedDebug|Any CPU.ActiveCfg = AutomatedDebug|Any CPU
+		{54F0B648-DB1E-45A4-BA1B-FEB0AF16023E}.AutomatedDebug|Any CPU.Build.0 = AutomatedDebug|Any CPU
+		{54F0B648-DB1E-45A4-BA1B-FEB0AF16023E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54F0B648-DB1E-45A4-BA1B-FEB0AF16023E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54F0B648-DB1E-45A4-BA1B-FEB0AF16023E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54F0B648-DB1E-45A4-BA1B-FEB0AF16023E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,1 @@
+@var\nant\NAnt.exe -buildfile:Wp7SolutionTemplate.build  %*

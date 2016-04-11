@@ -1,0 +1,201 @@
+<?xml version="1.0" ?>
+<project name="Cgol" default="test" xmlns="http://nant.sourceforge.net/nightly/latest/nant.xsd">
+	
+	<!--Properties-->
+  <property name="src.folder" value="src"/>
+  <property name="src.sln.file" value="src/Cgol.sln"/>
+  <property name="src.sln.configuration" value="Release"/>
+  <property name="src.sln.configuration.prefix" value=""/>
+  <property name="src.folder.app" value="src/Cgol.Console/"/>
+  <property name="build.dir" value="build" />
+  <property name="build.debug.dir" value="${build.dir}\${src.sln.configuration}" dynamic="true"  />
+  <property name="build.reports.dir" value="${build.dir}/Reports" />
+  <property name="build.temp.dir" value="${build.dir}/Temp" />
+  <property name="build.dist.dir" value="${build.dir}/Distibutions" />
+  <property name="msbuild.executeable" value="${framework::get-framework-directory(framework::get-target-framework())}\msbuild.exe"/>
+  <property name="msbuild.executeable" value="C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" />
+  <property name="msbuild.bin.folder" value="bin\${src.sln.configuration}"/>
+  <property name="version.buildFile" value="Cgol.build"/>
+  <property name="mercurial.path" value="C:\Program Files\TortoiseHg\"/>
+  <property name="mercurial.exe" value="${mercurial.path}hg.exe"/>
+  <property name="dropbox.public" value="C:\Users\${environment::get-user-name()}\Dropbox\Public\"/>
+  
+  <!-- Version -->
+  <property name="version.major" value="0"/>
+  <property name="version.minor" value="0"/>
+  <property name="version.build" value="4" />
+  <property name="version.revision" value="*" />
+  <property name="project.fullversion" value="${version.major}.${version.minor}.${version.build}" dynamic="true" />
+  <property name="project.fullversion.file" value="${version.major}.${version.minor}.${version.build}.${version.revision}" dynamic="true" />
+
+  <!-- Teamcity-->
+  <property name="version.build" value="${build.number}" if="${property::exists('build.number')}"/>
+  <property name="version.revision" value="${build.vcs.number.1}" if="${property::exists('build.vcs.number.1')}" />
+
+  <!-- User targets -->
+  <target name="test" depends="compile, run-unit-tests" description="Compile and Run Tests" />
+  <target name="cover" depends="compile, run-code-cover-tests" description="Compile and Run Tests" />
+  <target name="full" depends="clean, version, test, dist , version.update"	description="Compiles, tests, and produces distributions" />
+
+  <!-- Internal targets -->
+  <target name="clean" description="Delete Automated Build artifacts">
+    <delete dir="${build.dir}" if="${directory::exists(build.dir)}"/>
+    <delete failonerror="false">
+      <fileset basedir="${src.folder}">
+        <include name="**\Bin\Release\**"/>
+        <include name="**\Bin\Debug\**"/>
+        <include name="**\Obj\Debug\**"/>
+        <include name="**\Obj\Release\**"/>
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="compile" description="Compiles using the AutomatedDebug Configuration">
+    <exec
+		  program="${msbuild.executeable}"
+		  commandline="${src.sln.file} /t:clean /p:Configuration=${src.sln.configuration} /v:q "
+		  workingdir="." />
+    <echo message="${msbuild.executeable}" />
+    <exec
+		  program="${msbuild.executeable}"
+		  commandline="${src.sln.file} /t:rebuild /p:Configuration=${src.sln.configuration} /v:q"
+		  workingdir="." />
+    <call target="msbuild.copy"/>
+  </target>
+
+  <target name="msbuild.copy">
+    <property name="msbuild.ilmerge.sourceFolder" value="${src.folder}\Cgol.Console\${msbuild.bin.folder}"/>
+    <property name="msbuild.ilmerge.buildFolder" value="${build.debug.dir}\${src.sln.configuration.prefix}Cgol.Console"/>
+    <echo message="Copy files from ${msbuild.ilmerge.sourceFolder}"/>
+    <echo message="Copy files to ${msbuild.ilmerge.buildFolder}"/>
+    <copy todir="${msbuild.ilmerge.buildFolder}" overwrite="true"  >
+      <fileset basedir="${msbuild.ilmerge.sourceFolder}">
+        <include name="*.*"/>
+<!--        <exclude name="*.exe"/>-->
+<!--        <exclude name="*.dll"/>-->
+<!--        <exclude name="*.pdb"/>-->
+      </fileset>
+    </copy>
+<!--    Use ilmerge-->
+<!--    <echo message="${msbuild.ilmerge.sourceFolder}\Plossum CommandLine.pdb"/>-->
+<!--    <delete file="${msbuild.ilmerge.sourceFolder}\Plossum CommandLine.pdb"/>-->
+<!--    <exec program="Tools\ilmerge\ilmerge.exe" failonerror="true" >-->
+<!--      <arg value="/out:&quot;${msbuild.ilmerge.buildFolder}\Cgol.exe&quot;" />-->
+<!--      <arg value="&quot;${msbuild.ilmerge.sourceFolder}\Cgol.exe&quot;"/>-->
+<!--      <arg value="&quot;${msbuild.ilmerge.sourceFolder}\C5.dll&quot;" />-->
+<!--      <arg value="&quot;${msbuild.ilmerge.sourceFolder}\Cgol.Core.dll&quot;" />-->
+<!--      <arg value="&quot;${msbuild.ilmerge.sourceFolder}\Plossum CommandLine.dll&quot;" />-->
+<!--      <arg value="&quot;${msbuild.ilmerge.sourceFolder}\Log4net.dll&quot;" />-->
+<!--    </exec>-->
+    <copy todir="${build.debug.dir}\${src.sln.configuration.prefix}Cgol.Tests" overwrite="true">
+      <fileset basedir="${src.folder}\Cgol.Tests\${msbuild.bin.folder}">
+        <include name="*.*"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="version" description="Generate AssemblyInfo">
+    <echo message="Marking build with version ${project.fullversion}" />
+    <loadfile  file="${src.folder.app}/Properties/CommonAssemblyInfo.cs" property="CommonAssemblyInfo.Data" />
+    <regex pattern="\[assembly: (?'replaceme'AssemblyVersion.*)\]" input="${CommonAssemblyInfo.Data}" />
+    <echo message="Updated from: ${replaceme}" />
+    <echo message="${string::replace(CommonAssemblyInfo.Data, replaceme, 'AssemblyVersion(&quot;'+project.fullversion.file+'&quot;)')}" file="${src.folder.app}/properties/CommonAssemblyInfo.cs"/>
+
+  </target>
+
+  
+  <target name="version.update" description="Generate AssemblyInfo">
+    
+    <xmlpeek
+    file="${version.buildFile}"
+    xpath="/x:project/x:property[@name = 'version.build']/@value"
+    property="version.build.read"
+    verbose="false">
+      <namespaces>
+        <namespace prefix="x" uri="http://nant.sourceforge.net/nightly/latest/nant.xsd" />
+      </namespaces>
+    </xmlpeek>
+    <loadfile  file="${version.buildFile}" property="build.Data" />
+    <regex pattern="property (?'replaceme'name=&quot;version.build&quot;.*)" input="${build.Data}" />
+    
+    
+    <property name="new.version.build" value="${int::parse(version.build.read)+1}"/>
+    <echo message="Updated from: ${replaceme}" />
+    <echo message="Updated To: ${new.version.build}" />
+    <echo message="${string::replace(build.Data, replaceme, 'name=&quot;version.build&quot; value=&quot;'+new.version.build+'&quot; />')}" file="${version.buildFile}"/>
+
+  </target>
+
+  <target name="run-code-cover-tests" description="Code coverage of unit tests">
+    <property name="NUnit.console" value="Tools\nunit\nunit-console.exe" />
+    <property name="NUnit.console.args" value="/exclude=Integration Vault.UnitTests.dll" />
+    <echo message="${NUnit.console} ${run-unit-tests.dir} Vault.UnitTests.dll " />
+    <exec program="regsvr32"  commandline="/s tools\PartCover\PartCover.CorDriver.dll" />
+    <exec program="Tools\PartCover\PartCover.exe" failonerror="false" >
+      <arg value="--target &quot;${NUnit.console}&quot;" />
+      <arg value="--target-work-dir &quot;${run-unit-tests.dir}&quot;"/>
+      <arg value="--target-args  &quot;${NUnit.console.args}&quot;" />
+      <arg value="--include &quot;[Vault*]*&quot;" />
+      <arg value="--exclude &quot;[nunit*]*&quot;" />
+      <arg value="--output &quot;${build.reports.dir}\partcover.xml&quot;" />
+    </exec>
+    <echo>tools\PartCover\PartCover.Browser.exe build\reports\partcover.xml</echo>
+  </target>
+
+  <target name="run-unit-tests">
+    <mkdir dir="${build.reports.dir}"/>
+    <foreach item="Folder" in="${build.debug.dir}" property="foldername">
+      <do>
+        <if test="${string::contains(foldername,'Tests')}" >
+          <property name="nunit2-tests-by-Folder-dll" value="${path::combine(foldername,path::get-file-name(foldername) + '.dll'  )}" />
+          <echo message="Run nunit on ${nunit2-tests-by-Folder-dll}" />
+          <nunit2 verbose="true" haltonfailure="true" failonerror="true">
+            <formatter type="Xml" usefile="true" extension=".xml" outputdir="${build.reports.dir}"/>
+            <test assemblyname="${nunit2-tests-by-Folder-dll}" haltonfailure="true">
+              <categories>
+                <exclude name="Integration"/>
+              </categories>
+            </test>
+          </nunit2>
+        </if>
+      </do>
+    </foreach>
+  </target>
+
+  <target name="dist">
+    <mkdir dir="${build.dist.dir}" unless="${directory::exists(build.dist.dir)}"/>
+    <foreach item="Folder" in="${build.debug.dir}" property="foldername">
+      <do>
+        <if test="${not (string::contains(foldername,'Tests'))}" >
+          <property name="dist.from.folder" value="${foldername}" />
+          <property name="dist.to.folder" value="${path::combine(build.dist.dir,path::get-file-name(foldername)+ '.v' + project.fullversion + '.zip'  )}" />
+          <echo message="Zip from ${dist.from.folder}" />
+          <echo message="Zip to ${dist.to.folder}" />
+          <zip zipfile="${dist.to.folder}">
+            <fileset basedir="${dist.from.folder}">
+              <include name="**\*"/>
+              <exclude name="**\*.pdb"/>
+            </fileset>
+          </zip>
+        </if>
+      </do>
+    </foreach>
+  </target>
+
+  <!-- HG Tagging -->
+  <target name="hg.tag">
+    <exec program="${mercurial.exe}" commandline="commit -m &quot;Commit before tagging&quot;"  failonerror="false" basedir="${mercurial.path}"  workingdir="./" />
+    <exec program="${mercurial.exe}" commandline="tag &quot;${'Version ' + project.fullversion}&quot;"  failonerror="true" basedir="${mercurial.path}"  workingdir="./" />
+  </target>
+ 
+ <!-- Drop box -->
+ <target name="dist.to.storage">
+   <echo message="Copy to ${dropbox.public}"/>
+    <copy todir="${dropbox.public}">
+      <fileset basedir="${build.dist.dir}">
+        <include name="**\*.zip"/>
+      </fileset>
+    </copy>
+  </target>
+  
+</project>

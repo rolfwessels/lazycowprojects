@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="ArdumotoBot.Remote.ControllerInterface"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             MinWidth="200" MinHeight="100">
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <StackPanel.Resources>
+            <Style TargetType="Slider">
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="TickFrequency" Value="10" />
+                <Setter Property="IsSnapToTickEnabled" Value="True" />
+                <Setter Property="TickPlacement" Value="TopLeft" />
+                
+            </Style>
+        </StackPanel.Resources>
+        <Slider VerticalAlignment="Stretch"   MinHeight="120" Orientation="Vertical" Minimum="-100" Maximum="100" Value="{Binding Speed}"></Slider>
+        <Slider HorizontalAlignment="Stretch"   MinWidth="120" Orientation="Horizontal" Minimum="-100" Maximum="100" Value="{Binding Direction}"></Slider>
+        <Button Command="{Binding StopCommand}">Stop</Button>
+    </StackPanel>
+</UserControl>

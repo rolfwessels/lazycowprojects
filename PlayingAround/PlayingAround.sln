@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PlayingAround", "PlayingAround.vcproj", "{D5BD7347-7810-4405-9F3B-56FBBF0E92BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AVR|Win32 = AVR|Win32
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D5BD7347-7810-4405-9F3B-56FBBF0E92BA}.AVR|Win32.ActiveCfg = AVR|Win32
+		{D5BD7347-7810-4405-9F3B-56FBBF0E92BA}.AVR|Win32.Build.0 = AVR|Win32
+		{D5BD7347-7810-4405-9F3B-56FBBF0E92BA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D5BD7347-7810-4405-9F3B-56FBBF0E92BA}.Debug|Win32.Build.0 = Debug|Win32
+		{D5BD7347-7810-4405-9F3B-56FBBF0E92BA}.Release|Win32.ActiveCfg = Release|Win32
+		{D5BD7347-7810-4405-9F3B-56FBBF0E92BA}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
